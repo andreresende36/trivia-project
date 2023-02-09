@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNameAndEmail } from '../redux/actions';
+import getToken from '../services/apiTrivia';
 
 // A pessoa que joga deve conseguir escrever seu nome no input de texto
 // A pessoa que joga deve conseguir escrever seu email no input de email
@@ -42,8 +43,14 @@ class Login extends Component {
     });
   };
 
+  handlePlayButton = () => {
+    const { dispatch, history } = this.props;
+    dispatch(setNameAndEmail({ email: userEmail, name: userName }));
+    this.clearInputs();
+    getToken().then(history.push('/game'));
+  };
+
   render() {
-    const { dispatch } = this.props;
     const { userEmail, userName, isDisabled } = this.state;
     return (
       <form>
@@ -73,10 +80,7 @@ class Login extends Component {
         <button
           type="button"
           disabled={ isDisabled }
-          onClick={ () => {
-            dispatch(setNameAndEmail({ email: userEmail, name: userName }));
-            this.clearInputs();
-          } }
+          onClick={ this.handlePlayButton }
           data-testid="btn-play"
         >
           Play
@@ -88,6 +92,9 @@ class Login extends Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect()(Login);

@@ -42,6 +42,11 @@ class Login extends Component {
     });
   };
 
+  handleSettingsOnClick = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   render() {
     const { dispatch } = this.props;
     const { userEmail, userName, isDisabled } = this.state;
@@ -81,6 +86,13 @@ class Login extends Component {
         >
           Play
         </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleSettingsOnClick }
+        >
+          Configurações
+        </button>
       </form>
     );
   }
@@ -88,6 +100,9 @@ class Login extends Component {
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect()(Login);

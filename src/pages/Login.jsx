@@ -43,6 +43,11 @@ class Login extends Component {
     });
   };
 
+  handleSettingsOnClick = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   handlePlayButton = () => {
     const { dispatch, history } = this.props;
     const { userEmail, userName } = this.state;
@@ -85,6 +90,13 @@ class Login extends Component {
           data-testid="btn-play"
         >
           Play
+        </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleSettingsOnClick }
+        >
+          Configurações
         </button>
       </form>
     );

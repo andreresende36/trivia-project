@@ -45,6 +45,7 @@ class Login extends Component {
 
   handlePlayButton = () => {
     const { dispatch, history } = this.props;
+    const { userEmail, userName } = this.state;
     dispatch(setNameAndEmail({ email: userEmail, name: userName }));
     this.clearInputs();
     getToken().then(history.push('/game'));

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNameAndEmail } from '../redux/actions';
-import getToken from '../services/apiTrivia';
+import { getToken } from '../services/apiTrivia';
 
 // A pessoa que joga deve conseguir escrever seu nome no input de texto
 // A pessoa que joga deve conseguir escrever seu email no input de email

@@ -3,7 +3,7 @@ import { SET_LOGIN } from '../actions/variablesTypes';
 const INITIAL_STATE = {
   name: '',
   assertions: '',
-  score: '',
+  score: 0,
   gravatarEmail: '',
 };
 

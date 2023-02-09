@@ -59,4 +59,27 @@ describe('Verifica campos da pagina inicial', () => {
     userEvent.clear(inputEmail);
     expect(button).toHaveProperty('disabled', true);
   });
+
+  test('Testa rota correta do usuario', async () => {
+    const { history, store } = renderWithRouterAndRedux(<App />);
+    const inputName = screen.getByTestId(TestIdName);
+    const inputEmail = screen.getByTestId(TestIdEmail);
+    const button = screen.getByRole('button', { name: /Play/i });
+
+    expect(inputEmail).toBeInTheDocument();
+    expect(inputName).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+    expect(button.disabled).toBe(true);
+
+    userEvent.type(inputName, validName);
+    userEvent.type(inputEmail, validEmail);
+    expect(inputEmail).toHaveValue(validEmail);
+    expect(inputName).toHaveValue(validName);
+
+    userEvent.click(button);
+    expect(store.getState().player.name).toEqual(validName);
+    expect(store.getState().player.gravatarEmail).toEqual(validEmail);
+    const { pathname } = history.location;
+    expect(pathname).toEqual('/game');
+  });
 });

@@ -1,4 +1,4 @@
-import { SET_LOGIN } from '../actions/variablesTypes';
+import { SET_LOGIN, INCREASE_SCORE } from '../actions/variablesTypes';
 
 const INITIAL_STATE = {
   name: '',
@@ -7,6 +7,11 @@ const INITIAL_STATE = {
   gravatarEmail: '',
 };
 
+const defaultIncreaseScore = 10;
+
+// Isso aqui tem que ser atualizado
+const timer = 1;
+
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_LOGIN:
@@ -14,6 +19,11 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       name: action.payload.name,
       gravatarEmail: action.payload.email,
+    });
+  case INCREASE_SCORE:
+    return ({
+      ...state,
+      score: state.score + defaultIncreaseScore + (timer * action.payload),
     });
   default:
     return state;

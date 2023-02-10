@@ -1,13 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeIndexOfQuestions } from '../redux/actions';
+import { changeIndexOfQuestions, increaseScore } from '../redux/actions';
+import { calcDifficultyIndex } from '../services/calcDifficultyIndex';
 
 const sortNumber = 0.5;
 class Question extends Component {
-  handleAnswer = () => {
-    const { dispatch } = this.props;
+  handleAnswer = ({ target: { name } }) => {
+    const answer = name;
+    const { dispatch, questionData: { correctAnswer, difficulty } } = this.props;
+    const difficultyIndex = calcDifficultyIndex(difficulty);
     dispatch(changeIndexOfQuestions());
+    if (answer === correctAnswer) {
+      dispatch(increaseScore(difficultyIndex));
+    }
   };
 
   render() {

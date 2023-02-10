@@ -1,7 +1,6 @@
 import { screen } from "@testing-library/react";
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux'
 import Game from "../pages/Game";
-import { getProfileImage } from "../services/apiTrivia";
 import md5 from 'crypto-js/md5';
 
 const INITIAL_TEST = {

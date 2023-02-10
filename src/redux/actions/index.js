@@ -3,6 +3,7 @@ import {
   RESPONSE_ERROR,
   RESPONSE_SUCCESS,
   CHANGE_INDEX_OF_QUESTIONS,
+  INCREASE_SCORE,
 } from './variablesTypes';
 
 // { name, email }
@@ -22,4 +23,9 @@ export const requestError = () => ({
 
 export const changeIndexOfQuestions = () => ({
   type: CHANGE_INDEX_OF_QUESTIONS,
+});
+
+export const increaseScore = (difficultyIndex) => ({
+  type: INCREASE_SCORE,
+  payload: difficultyIndex,
 });

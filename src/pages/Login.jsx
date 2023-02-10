@@ -4,13 +4,6 @@ import { connect } from 'react-redux';
 import { setNameAndEmail } from '../redux/actions';
 import getToken from '../services/apiTrivia';
 
-// A pessoa que joga deve conseguir escrever seu nome no input de texto
-// A pessoa que joga deve conseguir escrever seu email no input de email
-// O botão "Play" deve ser desabilitado caso email e/ou nome não estejam preenchidos
-// O campo de texto para o nome deve possuir o atributo data-testid com o valor input-player-name
-// O campo de texto para o email deve possuir o atributo data-testid com o valor input-gravatar-email
-// O botão "Play" que leva a pessoa ao jogo deve possuir o atributo data-testid com o valor btn-play
-
 class Login extends Component {
   state = {
     userName: '',
@@ -61,7 +54,7 @@ class Login extends Component {
     return (
       <form>
         <label htmlFor="userName">
-          Nome:
+          Nome
           <input
             type="text"
             id="userName"

@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getProfileImage } from '../services/apiTrivia';
 
-export default class Game extends Component {
+class Game extends Component {
   render() {
+    const { name, gravatarEmail, score } = this.props;
     return (
-      <div>Game</div>
+      <div>
+        <header className="game-header">
+          <label htmlFor="header-player-name">
+            {'Jogador: '}
+            <span data-testid="header-player-name">{name}</span>
+          </label>
+          <label htmlFor="header-score">
+            {'Pontuação: '}
+            <span data-testid="header-score">{score}</span>
+          </label>
+          { getProfileImage(gravatarEmail) }
+        </header>
+      </div>
     );
   }
 }
+
+const mapStateToProps = (globalState) => ({
+  ...globalState.player,
+});
+
+Game.propTypes = {
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(Game);

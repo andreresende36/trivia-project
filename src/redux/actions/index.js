@@ -1,4 +1,9 @@
-import { SET_LOGIN, RESPONSE_ERROR, RESPONSE_SUCCESS } from './variablesTypes';
+import {
+  SET_LOGIN,
+  RESPONSE_ERROR,
+  RESPONSE_SUCCESS,
+  CHANGE_INDEX_OF_QUESTIONS,
+} from './variablesTypes';
 
 // { name, email }
 export const setNameAndEmail = (nameAndEmail) => ({
@@ -13,4 +18,8 @@ export const requestSuccess = (responseAndQuestions) => ({
 
 export const requestError = () => ({
   type: RESPONSE_ERROR,
+});
+
+export const changeIndexOfQuestions = () => ({
+  type: CHANGE_INDEX_OF_QUESTIONS,
 });

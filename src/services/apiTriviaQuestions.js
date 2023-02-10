@@ -6,7 +6,7 @@ export const getQuestions = async () => {
   if (token) {
     try {
       const dataJson = await fetch(`${API_TOKEN}=${token}`);
-      const data = dataJson.json();
+      const data = await dataJson.json();
       return {
         responseCode: data.response_code,
         results: data.results,

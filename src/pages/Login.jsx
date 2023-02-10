@@ -1,15 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setNameAndEmail } from '../redux/actions';
+import { setNameAndEmail, requestError, requestSuccess } from '../redux/actions';
 import { getToken } from '../services/apiTrivia';
-
-// A pessoa que joga deve conseguir escrever seu nome no input de texto
-// A pessoa que joga deve conseguir escrever seu email no input de email
-// O botão "Play" deve ser desabilitado caso email e/ou nome não estejam preenchidos
-// O campo de texto para o nome deve possuir o atributo data-testid com o valor input-player-name
-// O campo de texto para o email deve possuir o atributo data-testid com o valor input-gravatar-email
-// O botão "Play" que leva a pessoa ao jogo deve possuir o atributo data-testid com o valor btn-play
+import { getQuestions } from '../services/apiTriviaQuestions';
 
 class Login extends Component {
   state = {
@@ -36,32 +30,34 @@ class Login extends Component {
     });
   };
 
-  clearInputs = () => {
-    this.setState({
-      userName: '',
-      userEmail: '',
-    });
-  };
-
   handleSettingsOnClick = () => {
     const { history } = this.props;
     history.push('/settings');
   };
 
-  handlePlayButton = () => {
+  hanldeQuestions = async () => {
     const { dispatch, history } = this.props;
+    const { responseCode, results } = await getQuestions();
+    if (responseCode === 0) dispatch(requestSuccess(results));
+    else dispatch(requestError());
+    history.push('/game');
+  };
+
+  handlePlayButton = async () => {
+    const { dispatch } = this.props;
     const { userEmail, userName } = this.state;
     dispatch(setNameAndEmail({ email: userEmail, name: userName }));
-    this.clearInputs();
-    getToken().then(history.push('/game'));
+    await getToken();
+    this.hanldeQuestions();
   };
 
   render() {
     const { userEmail, userName, isDisabled } = this.state;
+    const { questions } = this.props;
     return (
       <form>
         <label htmlFor="userName">
-          Nome:
+          Nome
           <input
             type="text"
             id="userName"
@@ -98,16 +94,24 @@ class Login extends Component {
         >
           Configurações
         </button>
+        { questions.errorMessage }
       </form>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  questions: state.questions,
+});
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  questions: PropTypes.shape({
+    errorMessage: PropTypes.string,
+  }).isRequired,
 };
 
-export default connect()(Login);
+export default connect(mapStateToProps)(Login);

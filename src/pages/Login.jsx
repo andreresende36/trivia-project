@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setNameAndEmail } from '../redux/actions';
+import { setNameAndEmail, requestError, requestSuccess } from '../redux/actions';
 import { getToken } from '../services/apiTrivia';
 import { getQuestions } from '../services/apiTriviaQuestions';
-import { request_error, request_success } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -38,12 +37,11 @@ class Login extends Component {
 
   hanldeQuestions = async () => {
     const { dispatch, history } = this.props;
-    const { response_code, results } = await getQuestions();
-    response_code === 0 
-      ? dispatch(request_success(results))
-      : dispatch(request_error());
+    const { responseCode, results } = await getQuestions();
+    if (responseCode === 0) dispatch(requestSuccess(results));
+    else dispatch(requestError());
     history.push('/game');
-  }
+  };
 
   handlePlayButton = async () => {
     const { dispatch } = this.props;
@@ -104,16 +102,16 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   questions: state.questions,
-}); 
+});
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired,
   }).isRequired,
   questions: PropTypes.shape({
     errorMessage: PropTypes.string,
-  })
-}
+  }).isRequired,
+};
 
 export default connect(mapStateToProps)(Login);

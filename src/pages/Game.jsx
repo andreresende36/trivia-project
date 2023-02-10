@@ -24,7 +24,7 @@ export default class Game extends Component {
     return (
       <div>
         Game
-      </div>
+      <div>
     );
-  }
-}
+  };
+};

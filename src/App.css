@@ -1,0 +1,10 @@
+.header-profile-picture {
+  border-radius: 100%;
+  width: 40px;
+}
+
+.game-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+}

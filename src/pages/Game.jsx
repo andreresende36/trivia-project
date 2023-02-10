@@ -1,30 +1,44 @@
+import PropTypes from "prop-types"
 import React, { Component } from 'react';
 import getQuestions from './../services/apiTriviaQuestions';
 import { deleteToken } from '../services/localStorage';
+import { connect } from 'react-redux';
+import Header from '../components/Header';
 
-export default class Game extends Component {
+ 
+class Game extends Component {
   state = {
     questions: [],
   }
 
-  setQuestions = async () => {
-    const { response_code, results } = await getQuestions()
-    const { history } = this.props;
-    if(response_code !== 3 ) {
+  componentDidMount() {
+    const { questions, history } = this.props;
+    if(questions.reload) {
       deleteToken();
       history.push('/');
-    };
-    this.setState({
-      questions: results,
-    });
+    }
   };
 
-  render() {
-    const { questions } = this.state;
-    return (
-      <div>
-        Game
-      <div>
-    );
-  };
-};
+   render() {
+     return (
+       <div>
+        <Header />
+       </div>
+     )
+   }
+ };
+
+Game.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+  questions: PropTypes.shape({
+    reload: PropTypes.bool.isRequired,
+  })
+}
+ 
+ const mapStateToProps = (state) => ({
+  questions: state.questions,
+ });
+
+ export default connect(mapStateToProps)(Game);

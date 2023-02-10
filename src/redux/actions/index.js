@@ -1,4 +1,5 @@
-import { SET_LOGIN } from './variablesTypes';
+import { SET_LOGIN, RESPONSE_ERROR, RESPONSE_SUCCESS } from './variablesTypes';
+import getQuestions from '../../services/apiTriviaQuestions';
 
 // { name, email }
 export const setNameAndEmail = (nameAndEmail) => ({
@@ -6,12 +7,11 @@ export const setNameAndEmail = (nameAndEmail) => ({
   payload: nameAndEmail,
 });
 
-const reuquest_success = (responseAndQuentions) => {
-  type: 
-}
+export const request_success = (responseAndQuestions) => ({
+  type: RESPONSE_SUCCESS,
+  payload: responseAndQuestions,
+});
 
-export const fetchQuestions = () => {
-  (dispatch) => {
-
-  }
-};
+export const request_error = () => ({
+  type: RESPONSE_ERROR,
+});

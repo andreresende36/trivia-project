@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setNameAndEmail } from '../redux/actions';
 import { getToken } from '../services/apiTrivia';
+import { getQuestions } from '../services/apiTriviaQuestions';
+import { request_error, request_success } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -29,28 +31,31 @@ class Login extends Component {
     });
   };
 
-  clearInputs = () => {
-    this.setState({
-      userName: '',
-      userEmail: '',
-    });
-  };
-
   handleSettingsOnClick = () => {
     const { history } = this.props;
     history.push('/settings');
   };
 
-  handlePlayButton = () => {
+  hanldeQuestions = async () => {
     const { dispatch, history } = this.props;
+    const { response_code, results } = await getQuestions();
+    response_code === 0 
+      ? dispatch(request_success(results))
+      : dispatch(request_error());
+    history.push('/game');
+  }
+
+  handlePlayButton = async () => {
+    const { dispatch } = this.props;
     const { userEmail, userName } = this.state;
     dispatch(setNameAndEmail({ email: userEmail, name: userName }));
-    this.clearInputs();
-    getToken().then(history.push('/game'));
+    await getToken();
+    this.hanldeQuestions();
   };
 
   render() {
     const { userEmail, userName, isDisabled } = this.state;
+    const { questions } = this.props;
     return (
       <form>
         <label htmlFor="userName">
@@ -91,16 +96,24 @@ class Login extends Component {
         >
           Configurações
         </button>
+        { questions.errorMessage }
       </form>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  questions: state.questions,
+}); 
+
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    push: PropTypes.func.isRequired
   }).isRequired,
-};
+  questions: PropTypes.shape({
+    errorMessage: PropTypes.string,
+  })
+}
 
-export default connect()(Login);
+export default connect(mapStateToProps)(Login);

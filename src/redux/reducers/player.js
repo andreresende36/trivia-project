@@ -9,9 +9,6 @@ const INITIAL_STATE = {
 
 const defaultIncreaseScore = 10;
 
-// Isso aqui tem que ser atualizado
-const timer = 1;
-
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_LOGIN:
@@ -23,7 +20,8 @@ const player = (state = INITIAL_STATE, action) => {
   case INCREASE_SCORE:
     return ({
       ...state,
-      score: state.score + defaultIncreaseScore + (timer * action.payload),
+      score:
+        state.score + defaultIncreaseScore + (action.seconds * action.difficultyIndex),
     });
   default:
     return state;

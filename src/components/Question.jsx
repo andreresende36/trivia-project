@@ -4,17 +4,22 @@ import { connect } from 'react-redux';
 import { changeIndexOfQuestions, increaseScore } from '../redux/actions';
 import { calcDifficultyIndex } from '../services/calcDifficultyIndex';
 import { randomAnswers } from '../services/randomAnswers';
+import '../Styles/Questions.css';
 
 class Question extends Component {
   state = {
     isAnswered: false,
     arrayAnswers: [],
+    selected: false,
+    seconds: 30,
+    isDisable: false,
   };
 
   componentDidMount() {
     const { questionData } = this.props;
     const { correctAnswer, incorrectAnswers } = questionData;
     this.setState({ arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers) });
+    this.decreaseTimer();
   }
 
   componentDidUpdate(prevProps) {
@@ -27,10 +32,12 @@ class Question extends Component {
 
   handleAnswer = ({ target: { name: answer } }) => {
     const { dispatch, questionData: { correctAnswer, difficulty } } = this.props;
+    const { seconds } = this.state;
     const difficultyIndex = calcDifficultyIndex(difficulty);
-    this.setState({ isAnswered: true });
+    clearInterval(this.timer);
+    this.setState({ isAnswered: true, selected: true });
     if (answer === correctAnswer) {
-      dispatch(increaseScore(difficultyIndex));
+      dispatch(increaseScore(difficultyIndex, seconds));
     }
   };
 
@@ -38,9 +45,39 @@ class Question extends Component {
     const { dispatch } = this.props;
     this.setState({ isAnswered: false });
     dispatch(changeIndexOfQuestions());
+    this.setState({
+      selected: false,
+      isDisable: false,
+      seconds: 30,
+    });
+    this.decreaseTimer();
+  };
+
+  decreaseTimer = () => {
+    const oneSecond = 1000;
+    this.timer = setInterval(() => {
+      const { seconds } = this.state;
+      this.setState(
+        (prevState) => ({
+          seconds: prevState.seconds - 1,
+        }),
+        () => {
+          if (seconds === 1) {
+            clearInterval(this.timer);
+            this.setState({ isDisable: true });
+          }
+        },
+      );
+    }, oneSecond);
+  };
+
+  handleOptionStyle = (selectedAnswer, correctAnswer) => {
+    if (selectedAnswer === correctAnswer) return 'correct';
+    return 'wrong';
   };
 
   render() {
+    const { selected, seconds, isDisable } = this.state;
     const { questionData } = this.props;
     const { isAnswered, arrayAnswers } = this.state;
     const { category, question, correctAnswer } = questionData;
@@ -50,7 +87,7 @@ class Question extends Component {
         onClick={ this.handleNextQuestion }
         data-testid="btn-next"
       >
-        Next question
+        Próxima pergunta
       </button>);
     return (
       <div>
@@ -67,11 +104,17 @@ class Question extends Component {
                   : 'correct-answer'
               }
               name={ answer }
+              className={ selected ? this.handleOptionStyle(answer, correctAnswer)
+                : '' }
               onClick={ this.handleAnswer }
+              disabled={ isDisable }
             >
               {answer}
             </button>
           ))}
+        </div>
+        <div>
+          { seconds }
         </div>
         { isAnswered ? nextButton : null}
       </div>

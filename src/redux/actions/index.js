@@ -25,7 +25,8 @@ export const changeIndexOfQuestions = () => ({
   type: CHANGE_INDEX_OF_QUESTIONS,
 });
 
-export const increaseScore = (difficultyIndex) => ({
+export const increaseScore = (difficultyIndex, seconds) => ({
   type: INCREASE_SCORE,
-  payload: difficultyIndex,
+  difficultyIndex,
+  seconds,
 });

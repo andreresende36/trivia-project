@@ -1,26 +1,57 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeIndexOfQuestions } from '../redux/actions';
+import { changeIndexOfQuestions, increaseScore } from '../redux/actions';
+import { calcDifficultyIndex } from '../services/calcDifficultyIndex';
+import { randomAnswers } from '../services/randomAnswers';
 import '../Styles/Questions.css';
 
-const sortNumber = 0.5;
 class Question extends Component {
   state = {
+    isAnswered: false,
+    arrayAnswers: [],
     selected: false,
     seconds: 30,
-    questions: [],
     isDisable: false,
   };
 
   componentDidMount() {
-    const { questionData: { correctAnswer, incorrectAnswers } } = this.props;
-    this.setState({
-      questions: [correctAnswer, ...incorrectAnswers]
-        .sort(() => sortNumber - Math.random()),
-    });
+    const { questionData } = this.props;
+    const { correctAnswer, incorrectAnswers } = questionData;
+    this.setState({ arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers) });
     this.decreaseTimer();
   }
+
+  componentDidUpdate(prevProps) {
+    const { questionData } = this.props;
+    const { correctAnswer, incorrectAnswers } = questionData;
+    if (questionData !== prevProps.questionData) {
+      this.setState({ arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers) });
+    }
+  }
+
+  handleAnswer = ({ target: { name: answer } }) => {
+    const { dispatch, questionData: { correctAnswer, difficulty } } = this.props;
+    const { seconds } = this.state;
+    const difficultyIndex = calcDifficultyIndex(difficulty);
+    clearInterval(this.timer);
+    this.setState({ isAnswered: true, selected: true });
+    if (answer === correctAnswer) {
+      dispatch(increaseScore(difficultyIndex, seconds));
+    }
+  };
+
+  handleNextQuestion = () => {
+    const { dispatch } = this.props;
+    this.setState({ isAnswered: false });
+    dispatch(changeIndexOfQuestions());
+    this.setState({
+      selected: false,
+      isDisable: false,
+      seconds: 30,
+    });
+    this.decreaseTimer();
+  };
 
   decreaseTimer = () => {
     const oneSecond = 1000;
@@ -40,41 +71,30 @@ class Question extends Component {
     }, oneSecond);
   };
 
-  // resetCount = () => {
-  //   this.setState({ seconds: 30 });
-  //   this.decreaseTimer();
-  // };
-
-  handleAnswer = () => {
-    const { dispatch } = this.props;
-    dispatch(changeIndexOfQuestions());
-    this.setState({
-      selected: false,
-      isDisable: false,
-    });
-  };
-
-  handleOptionClick = () => {
-    this.setState({
-      selected: true,
-    });
-  };
-
   handleOptionStyle = (selectedAnswer, correctAnswer) => {
     if (selectedAnswer === correctAnswer) return 'correct';
     return 'wrong';
   };
 
   render() {
-    const { selected, seconds, questions, isDisable } = this.state;
+    const { selected, seconds, isDisable } = this.state;
     const { questionData } = this.props;
+    const { isAnswered, arrayAnswers } = this.state;
     const { category, question, correctAnswer } = questionData;
+    const nextButton = (
+      <button
+        type="button"
+        onClick={ this.handleNextQuestion }
+        data-testid="btn-next"
+      >
+        Próxima pergunta
+      </button>);
     return (
       <div>
         <h2 data-testid="question-category">{category}</h2>
         <h4 data-testid="question-text">{question}</h4>
         <div data-testid="answer-options">
-          {questions.map((answer, index) => (
+          {arrayAnswers.map((answer, index) => (
             <button
               type="button"
               key={ answer }
@@ -86,22 +106,17 @@ class Question extends Component {
               name={ answer }
               className={ selected ? this.handleOptionStyle(answer, correctAnswer)
                 : '' }
-              onClick={ this.handleOptionClick }
+              onClick={ this.handleAnswer }
               disabled={ isDisable }
             >
               {answer}
             </button>
           ))}
-          <button
-            type="button"
-            onClick={ this.handleAnswer }
-          >
-            Próxima Pergunta
-          </button>
         </div>
         <div>
           { seconds }
         </div>
+        { isAnswered ? nextButton : null}
       </div>
     );
   }

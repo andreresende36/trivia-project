@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { deleteToken } from '../services/localStorage';
 import Header from '../components/Header';
 import Question from '../components/Question';
@@ -18,21 +19,24 @@ class Game extends Component {
     const { questions } = this.props;
     const { apiQuestions } = questions;
     const { indexOfCurrentQuestion: index } = questions;
+    const maxNumberOfQuestions = questions.apiQuestions.length;
     return (
       <div>
         <Header />
-        {apiQuestions.length > 0 && (
-          <Question
-            questionData={ {
-              category: apiQuestions[index].category,
-              type: apiQuestions[index].type,
-              difficulty: apiQuestions[index].difficulty,
-              question: apiQuestions[index].question,
-              correctAnswer: apiQuestions[index].correct_answer,
-              incorrectAnswers: apiQuestions[index].incorrect_answers,
-            } }
-          />
-        )}
+        {(apiQuestions.length > 0) && (index < maxNumberOfQuestions)
+          ? (
+            <Question
+              questionData={ {
+                category: apiQuestions[index].category,
+                type: apiQuestions[index].type,
+                difficulty: apiQuestions[index].difficulty,
+                question: apiQuestions[index].question,
+                correctAnswer: apiQuestions[index].correct_answer,
+                incorrectAnswers: apiQuestions[index].incorrect_answers,
+              } }
+            />
+          )
+          : (<Redirect to="feedback" />)}
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { SET_LOGIN, INCREASE_SCORE } from '../actions/variablesTypes';
+import { SET_LOGIN, INCREASE_SCORE, CLEAR_GLOBAL_STATE } from '../actions/variablesTypes';
 
 const INITIAL_STATE = {
   name: '',
@@ -24,6 +24,10 @@ const player = (state = INITIAL_STATE, action) => {
         state.score + defaultIncreaseScore + (action.seconds * action.difficultyIndex),
       assertions: state.assertions + 1,
     });
+  case CLEAR_GLOBAL_STATE:
+    return {
+      ...INITIAL_STATE,
+    };
   default:
     return state;
   }

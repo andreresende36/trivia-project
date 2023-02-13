@@ -10,7 +10,6 @@ class Question extends Component {
   state = {
     isAnswered: false,
     arrayAnswers: [],
-    selected: false,
     seconds: 30,
     isDisable: false,
   };
@@ -35,7 +34,7 @@ class Question extends Component {
     const { seconds } = this.state;
     const difficultyIndex = calcDifficultyIndex(difficulty);
     clearInterval(this.timer);
-    this.setState({ isAnswered: true, selected: true });
+    this.setState({ isAnswered: true });
     if (answer === correctAnswer) {
       dispatch(increaseScore(difficultyIndex, seconds));
     }
@@ -43,10 +42,9 @@ class Question extends Component {
 
   handleNextQuestion = () => {
     const { dispatch } = this.props;
-    this.setState({ isAnswered: false });
     dispatch(changeIndexOfQuestions());
     this.setState({
-      selected: false,
+      isAnswered: false,
       isDisable: false,
       seconds: 30,
     });
@@ -77,9 +75,8 @@ class Question extends Component {
   };
 
   render() {
-    const { selected, seconds, isDisable } = this.state;
+    const { isAnswered, seconds, isDisable, arrayAnswers } = this.state;
     const { questionData } = this.props;
-    const { isAnswered, arrayAnswers } = this.state;
     const { category, question, correctAnswer } = questionData;
     const nextButton = (
       <button
@@ -104,7 +101,7 @@ class Question extends Component {
                   : 'correct-answer'
               }
               name={ answer }
-              className={ selected ? this.handleOptionStyle(answer, correctAnswer)
+              className={ isAnswered ? this.handleOptionStyle(answer, correctAnswer)
                 : '' }
               onClick={ this.handleAnswer }
               disabled={ isDisable }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { clearGlobalState } from '../redux/actions';
 
@@ -15,13 +16,12 @@ class Feedback extends Component {
   };
 
   handleRankingButton = () => {
-    const { history, dispatch } = this.props;
+    const { dispatch } = this.props;
     dispatch(clearGlobalState());
-    history.push('/');
   };
 
   render() {
-    const { assertions, score, history } = this.props;
+    const { assertions, score } = this.props;
     return (
       <div>
         <Header />
@@ -36,20 +36,23 @@ class Feedback extends Component {
           <span data-testid="feedback-total-question">{ assertions }</span>
         </label>
         <br />
-        <button
-          type="button"
-          data-testid="btn-play-again"
-          onClick={ this.handleRankingButton }
-        >
-          Play Again
-        </button>
-        <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ () => history.push('/ranking') }
-        >
-          Ranking
-        </button>
+        <Link to="/">
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.handleRankingButton }
+          >
+            Play Again
+          </button>
+        </Link>
+        <Link to="/ranking">
+          <button
+            type="button"
+            data-testid="btn-ranking"
+          >
+            Ranking
+          </button>
+        </Link>
       </div>
     );
   }
@@ -63,9 +66,6 @@ Feedback.propTypes = {
   dispatch: PropTypes.func.isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

@@ -28,8 +28,7 @@ export const changeIndexOfQuestions = () => ({
 
 export const increaseScore = (difficultyIndex, seconds) => ({
   type: INCREASE_SCORE,
-  difficultyIndex,
-  seconds,
+  payload: { difficultyIndex, seconds },
 });
 
 export const clearGlobalState = () => ({

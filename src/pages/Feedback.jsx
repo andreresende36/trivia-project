@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { clearGlobalState } from '../redux/actions';
 
 class Feedback extends Component {
   handleMessage = () => {
@@ -11,6 +12,12 @@ class Feedback extends Component {
       return (<p data-testid="feedback-text">Could be better...</p>);
     }
     return (<p data-testid="feedback-text">Well Done!</p>);
+  };
+
+  handleRankingButton = () => {
+    const { history, dispatch } = this.props;
+    dispatch(clearGlobalState());
+    history.push('/');
   };
 
   render() {
@@ -32,9 +39,16 @@ class Feedback extends Component {
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
+          onClick={ this.handleRankingButton }
         >
           Play Again
+        </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ () => history.push('/ranking') }
+        >
+          Ranking
         </button>
       </div>
     );
@@ -46,6 +60,7 @@ const mapStateToProps = (globalState) => ({
 });
 
 Feedback.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   history: PropTypes.shape({

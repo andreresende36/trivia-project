@@ -2,6 +2,7 @@ import {
   RESPONSE_SUCCESS,
   RESPONSE_ERROR,
   CHANGE_INDEX_OF_QUESTIONS,
+  CLEAR_GLOBAL_STATE,
 } from '../actions/variablesTypes';
 
 const INITIAL_STATE = {
@@ -30,6 +31,10 @@ const questions = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       indexOfCurrentQuestion: state.indexOfCurrentQuestion + 1,
+    };
+  case CLEAR_GLOBAL_STATE:
+    return {
+      ...INITIAL_STATE,
     };
   default:
     return state;

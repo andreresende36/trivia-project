@@ -4,6 +4,7 @@ import {
   RESPONSE_SUCCESS,
   CHANGE_INDEX_OF_QUESTIONS,
   INCREASE_SCORE,
+  CLEAR_GLOBAL_STATE,
 } from './variablesTypes';
 
 // { name, email }
@@ -29,4 +30,8 @@ export const increaseScore = (difficultyIndex, seconds) => ({
   type: INCREASE_SCORE,
   difficultyIndex,
   seconds,
+});
+
+export const clearGlobalState = () => ({
+  type: CLEAR_GLOBAL_STATE,
 });

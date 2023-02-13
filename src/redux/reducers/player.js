@@ -21,7 +21,8 @@ const player = (state = INITIAL_STATE, action) => {
     return ({
       ...state,
       score:
-        state.score + defaultIncreaseScore + (action.seconds * action.difficultyIndex),
+        state.score + defaultIncreaseScore + (
+          action.payload.seconds * action.payload.difficultyIndex),
       assertions: state.assertions + 1,
     });
   case CLEAR_GLOBAL_STATE:

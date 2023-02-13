@@ -6,6 +6,28 @@ import Header from '../components/Header';
 import { clearGlobalState } from '../redux/actions';
 
 class Feedback extends Component {
+  componentDidMount() {
+    this.handlePlayersToRank();
+  }
+
+  handlePlayersToRank = () => {
+    const { assertions, score, name, gravatarEmail } = this.props;
+    const player = { assertions, score, name, gravatarEmail };
+    const firstPlayer = [player];
+
+    const retrievePlayers = JSON.parse(localStorage.getItem('Ranking'));
+    console.log(retrievePlayers);
+    if (retrievePlayers === null) {
+      localStorage.setItem('Ranking', JSON.stringify(firstPlayer));
+    } else {
+      const allPlayers = [
+        ...retrievePlayers,
+        player,
+      ];
+      localStorage.setItem('Ranking', JSON.stringify(allPlayers));
+    }
+  };
+
   handleMessage = () => {
     const { assertions } = this.props;
     const mediumScore = 3;
@@ -66,6 +88,8 @@ Feedback.propTypes = {
   dispatch: PropTypes.func.isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);

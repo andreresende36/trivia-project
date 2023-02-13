@@ -10,11 +10,11 @@ class Header extends Component {
       <div>
         <header className="game-header">
           <label htmlFor="header-player-name">
-            {'Jogador: '}
+            {'Player: '}
             <span data-testid="header-player-name">{name}</span>
           </label>
           <label htmlFor="header-score">
-            {'Pontuação: '}
+            {'Score: '}
             <span data-testid="header-score">{score}</span>
           </label>
           { getProfileImage(gravatarEmail) }

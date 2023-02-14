@@ -1,8 +1,10 @@
+import { getLocalToken } from './localStorageGetToken';
+
 const QUESTIONS_NUMBER = 5;
 const API_TOKEN = `https://opentdb.com/api.php?amount=${QUESTIONS_NUMBER}&token`;
 
 export const getQuestions = async () => {
-  const token = localStorage.getItem('token');
+  const token = getLocalToken();
   if (token) {
     try {
       const dataJson = await fetch(`${API_TOKEN}=${token}`);

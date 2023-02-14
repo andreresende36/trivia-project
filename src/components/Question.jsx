@@ -17,7 +17,9 @@ class Question extends Component {
   componentDidMount() {
     const { questionData } = this.props;
     const { correctAnswer, incorrectAnswers } = questionData;
-    this.setState({ arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers) });
+    this.setState({
+      arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers),
+    });
     this.decreaseTimer();
   }
 
@@ -25,12 +27,17 @@ class Question extends Component {
     const { questionData } = this.props;
     const { correctAnswer, incorrectAnswers } = questionData;
     if (questionData !== prevProps.questionData) {
-      this.setState({ arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers) });
+      this.setState({
+        arrayAnswers: randomAnswers(correctAnswer, incorrectAnswers),
+      });
     }
   }
 
   handleAnswer = ({ target: { name: answer } }) => {
-    const { dispatch, questionData: { correctAnswer, difficulty } } = this.props;
+    const {
+      dispatch,
+      questionData: { correctAnswer, difficulty },
+    } = this.props;
     const { seconds } = this.state;
     const difficultyIndex = calcDifficultyIndex(difficulty);
     clearInterval(this.timer);
@@ -85,7 +92,8 @@ class Question extends Component {
         data-testid="btn-next"
       >
         Próxima pergunta
-      </button>);
+      </button>
+    );
     return (
       <div>
         <h2 data-testid="question-category">{category}</h2>
@@ -101,8 +109,9 @@ class Question extends Component {
                   : 'correct-answer'
               }
               name={ answer }
-              className={ isAnswered ? this.handleOptionStyle(answer, correctAnswer)
-                : '' }
+              className={
+                isAnswered ? this.handleOptionStyle(answer, correctAnswer) : ''
+              }
               onClick={ this.handleAnswer }
               disabled={ isDisable }
             >
@@ -110,10 +119,8 @@ class Question extends Component {
             </button>
           ))}
         </div>
-        <div>
-          { seconds }
-        </div>
-        { isAnswered ? nextButton : null}
+        <div>{seconds}</div>
+        {isAnswered ? nextButton : null}
       </div>
     );
   }

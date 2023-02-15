@@ -16,7 +16,6 @@ class Feedback extends Component {
     const firstPlayer = [player];
 
     const retrievePlayers = JSON.parse(localStorage.getItem('Ranking'));
-    console.log(retrievePlayers);
     if (retrievePlayers === null) {
       localStorage.setItem('Ranking', JSON.stringify(firstPlayer));
     } else {

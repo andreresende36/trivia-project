@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { clearGlobalState } from '../redux/actions';
+import logo from '../images/logo-trivia.svg';
 
 class Feedback extends Component {
   componentDidMount() {
@@ -20,10 +21,7 @@ class Feedback extends Component {
     if (retrievePlayers === null) {
       localStorage.setItem('Ranking', JSON.stringify(firstPlayer));
     } else {
-      const allPlayers = [
-        ...retrievePlayers,
-        player,
-      ];
+      const allPlayers = [...retrievePlayers, player];
       localStorage.setItem('Ranking', JSON.stringify(allPlayers));
     }
   };
@@ -32,9 +30,9 @@ class Feedback extends Component {
     const { assertions } = this.props;
     const mediumScore = 3;
     if (assertions < mediumScore) {
-      return (<p data-testid="feedback-text">Could be better...</p>);
+      return <h2 data-testid="feedback-text">Could be better...</h2>;
     }
-    return (<p data-testid="feedback-text">Well Done!</p>);
+    return <h2 data-testid="feedback-text">Well Done!</h2>;
   };
 
   handleRankingButton = () => {
@@ -45,36 +43,45 @@ class Feedback extends Component {
   render() {
     const { assertions, score } = this.props;
     return (
-      <div>
-        <Header />
-        { this.handleMessage() }
-        <label htmlFor="feedback-total-score">
-          {'Total score: '}
-          <span data-testid="feedback-total-score">{ score }</span>
-        </label>
-        <br />
-        <label htmlFor="feedback-total-question">
-          {'Assertions: '}
-          <span data-testid="feedback-total-question">{ assertions }</span>
-        </label>
-        <br />
-        <Link to="/">
-          <button
-            type="button"
-            data-testid="btn-play-again"
-            onClick={ this.handleRankingButton }
-          >
-            Play Again
-          </button>
-        </Link>
-        <Link to="/ranking">
-          <button
-            type="button"
-            data-testid="btn-ranking"
-          >
-            Ranking
-          </button>
-        </Link>
+      <div className="feedback">
+        <img src={ logo } alt="logo" className="logo logo-game" />
+        <div className="feedback-card">
+          <Header />
+          {this.handleMessage()}
+          <div className="feedback-score">
+            <label htmlFor="feedback-total-score">
+              {'Total score: '}
+              <span data-testid="feedback-total-score">{score}</span>
+            </label>
+            <br />
+            <label htmlFor="feedback-total-question">
+              {'Assertions: '}
+              <span data-testid="feedback-total-question">{assertions}</span>
+            </label>
+          </div>
+          <br />
+        </div>
+        <div className="feedback_buttons">
+          <Link to="/">
+            <button
+              type="button"
+              data-testid="btn-play-again"
+              onClick={ this.handleRankingButton }
+              className="btn btn-primary"
+            >
+              Play Again
+            </button>
+          </Link>
+          <Link to="/ranking">
+            <button
+              type="button"
+              data-testid="btn-ranking"
+              className="btn btn-secondary"
+            >
+              Ranking
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }

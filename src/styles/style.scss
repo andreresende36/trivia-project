@@ -100,6 +100,7 @@ label {
 .header-profile-picture {
   border-radius: 50%;
   width: 30px;
+  padding: 0;
 }
 
 //end-header
@@ -119,6 +120,95 @@ label {
 }
 
 //game-end
+
+//feedback
+.feedback {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 100px;
+
+  .feedback-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 40%;
+    border-radius: 10px;
+    height: 50%;
+  }
+  .card {
+    width: 50%;
+    height: 0;
+    border: none;
+    
+    .game-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 50%;
+      background-color: white;
+      width: 100%;
+      position: relative;
+
+      img {
+        position: absolute; 
+        width: 180px;
+        left: 16%;
+        top: -180px;
+        box-shadow: rgb(42, 90, 247) 0px 1px 55px, rgb(65, 31, 255) 0px -2px 30px, rgb(44, 93, 255) 0px 2px 6px, rgb(100, 65, 255) 0px 2px 30px;
+      }
+    }
+    label, span {
+      opacity: 0%;
+      display: none;
+    }
+  }
+
+  .feedback_buttons {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    
+    .btn {
+      // display: block;
+      width: 20vw;
+      border-radius: 0;
+    }
+  }
+
+  .logo {
+    width: 8%;
+    position: absolute;
+    left: 46%;
+  }
+
+  .row>* {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  h2 {
+    color: map-get($map: $theme-purple, $key: 50);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .feedback-score {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+//end-feedback
 
 
 @media screen and (max-width: 780px) {

@@ -41,7 +41,7 @@ class Question extends Component {
     const { seconds } = this.state;
     const difficultyIndex = calcDifficultyIndex(difficulty);
     clearInterval(this.timer);
-    this.setState({ isAnswered: true, isDisable: true });
+    this.setState({ isAnswered: true });
     if (answer === correctAnswer) {
       dispatch(increaseScore(difficultyIndex, seconds));
     }

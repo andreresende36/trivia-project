@@ -10,13 +10,11 @@ class Header extends Component {
     return (
       <div className="container-fluid card p-4 header">
         <header className="game-header row justify-content-end">
+          {getProfileImage(gravatarEmail)}
           <label
             htmlFor="header-player-name"
             className="col-6 col-sm-4 col-md-2 d-flex align-items-center gap-2"
           >
-            {getProfileImage(gravatarEmail)}
-
-            Player:
             <span data-testid="header-player-name">{name}</span>
           </label>
           <label

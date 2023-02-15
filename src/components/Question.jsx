@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { StopwatchFill } from 'react-bootstrap-icons';
 import { changeIndexOfQuestions, increaseScore } from '../redux/actions';
 import { calcDifficultyIndex } from '../services/calcDifficultyIndex';
 import { randomAnswers } from '../services/randomAnswers';
-import '../Styles/Questions.css';
 
 class Question extends Component {
   state = {
@@ -41,7 +41,7 @@ class Question extends Component {
     const { seconds } = this.state;
     const difficultyIndex = calcDifficultyIndex(difficulty);
     clearInterval(this.timer);
-    this.setState({ isAnswered: true });
+    this.setState({ isAnswered: true, isDisable: true });
     if (answer === correctAnswer) {
       dispatch(increaseScore(difficultyIndex, seconds));
     }
@@ -77,8 +77,9 @@ class Question extends Component {
   };
 
   handleOptionStyle = (selectedAnswer, correctAnswer) => {
-    if (selectedAnswer === correctAnswer) return 'correct';
-    return 'wrong';
+    const buttonClass = 'btn btn-light';
+    if (selectedAnswer === correctAnswer) return `${buttonClass} correct`;
+    return `${buttonClass} wrong`;
   };
 
   render() {
@@ -90,37 +91,52 @@ class Question extends Component {
         type="button"
         onClick={ this.handleNextQuestion }
         data-testid="btn-next"
+        className="btn btn-success col-6 offset-3"
       >
         Próxima pergunta
       </button>
     );
     return (
-      <div>
-        <h2 data-testid="question-category">{category}</h2>
-        <h4 data-testid="question-text">{question}</h4>
-        <div data-testid="answer-options">
-          {arrayAnswers.map((answer, index) => (
-            <button
-              type="button"
-              key={ answer }
-              data-testid={
-                answer !== correctAnswer
-                  ? `wrong-answer-${index}`
-                  : 'correct-answer'
-              }
-              name={ answer }
-              className={
-                isAnswered ? this.handleOptionStyle(answer, correctAnswer) : ''
-              }
-              onClick={ this.handleAnswer }
-              disabled={ isDisable }
-            >
-              {answer}
-            </button>
-          ))}
+      <div className="row justify-content-center align-items-center question">
+        <div className="col-12 col-sm-6 col-md-6 card">
+          <h2
+            data-testid="question-category"
+            className="btn btn-warning col-9 question-category p-2"
+          >
+            {category}
+          </h2>
+          <h4 data-testid="question-text" className="mt-5 p-4">{question}</h4>
+          <p className="d-flex align-items-center justify-content-center gap-1">
+            <StopwatchFill />
+            Tempo:
+            <span>{seconds}</span>
+          </p>
         </div>
-        <div>{seconds}</div>
-        {isAnswered ? nextButton : null}
+        <div data-testid="answer-options" className="col-12 col-sm-4 buttons">
+          {arrayAnswers.map((answer, index) => (
+            <div key={ answer } className="row m-2">
+              <button
+                type="button"
+                data-testid={
+                  answer !== correctAnswer
+                    ? `wrong-answer-${index}`
+                    : 'correct-answer'
+                }
+                name={ answer }
+                className={
+                  isAnswered
+                    ? this.handleOptionStyle(answer, correctAnswer)
+                    : 'btn btn-light'
+                }
+                onClick={ this.handleAnswer }
+                disabled={ isDisable }
+              >
+                {answer}
+              </button>
+            </div>
+          ))}
+          {isAnswered ? nextButton : null}
+        </div>
       </div>
     );
   }

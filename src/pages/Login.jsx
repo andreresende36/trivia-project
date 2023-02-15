@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setNameAndEmail, requestError, requestSuccess } from '../redux/actions';
+import { GearFill } from 'react-bootstrap-icons';
+import {
+  setNameAndEmail,
+  requestError,
+  requestSuccess,
+} from '../redux/actions';
 import { getToken } from '../services/apiTrivia';
 import { getQuestions } from '../services/apiTriviaQuestions';
+import logo from '../images/logo-trivia.svg';
 
 class Login extends Component {
   state = {
@@ -55,47 +61,69 @@ class Login extends Component {
     const { userEmail, userName, isDisabled } = this.state;
     const { questions } = this.props;
     return (
-      <form>
-        <label htmlFor="userName">
-          Nome
-          <input
-            type="text"
-            id="userName"
-            onChange={ this.handleInput }
-            name="userName"
-            data-testid="input-player-name"
-            value={ userName }
-          />
-        </label>
+      <div
+        className="login d-flex flex-column
+          container align-items-center"
+      >
+        <img src={ logo } alt="logo" className="logo mt-4" />
+        <form className="form-group login-form mt-4">
+          <div className="row justify-content-center">
+            <label htmlFor="userName" className="col-10">
+              Name:
+              <input
+                type="text"
+                id="userName"
+                onChange={ this.handleInput }
+                name="userName"
+                data-testid="input-player-name"
+                value={ userName }
+                className="form-control"
+              />
+            </label>
+          </div>
 
-        <label htmlFor="userEmail">
-          Email:
-          <input
-            type="text"
-            id="userEmail"
-            onChange={ this.handleInput }
-            name="userEmail"
-            data-testid="input-gravatar-email"
-            value={ userEmail }
-          />
-        </label>
-        <button
-          type="button"
-          disabled={ isDisabled }
-          onClick={ this.handlePlayButton }
-          data-testid="btn-play"
-        >
-          Play
-        </button>
-        <button
-          type="button"
-          data-testid="btn-settings"
-          onClick={ this.handleSettingsOnClick }
-        >
-          Configurações
-        </button>
-        { questions.errorMessage }
-      </form>
+          <div className="row justify-content-center">
+            <label htmlFor="userEmail" className="col-10">
+              Email:
+              <input
+                type="text"
+                id="userEmail"
+                onChange={ this.handleInput }
+                name="userEmail"
+                data-testid="input-gravatar-email"
+                value={ userEmail }
+                className="form-control"
+              />
+            </label>
+          </div>
+
+          <div className="row justify-content-center mt-3 gap-4">
+            <button
+              type="button"
+              disabled={ isDisabled }
+              onClick={ this.handlePlayButton }
+              data-testid="btn-play"
+              className="btn btn-primary col-8 col-md-6 col-sm-8"
+            >
+              Play
+            </button>
+          </div>
+          <div className="row justify-content-center mt-3">
+            <button
+              type="button"
+              data-testid="btn-settings"
+              onClick={ this.handleSettingsOnClick }
+              className="btn btn-secondary col-6 col-md-3 col-sm-6"
+            >
+              <GearFill />
+              {' '}
+              Settings
+            </button>
+          </div>
+
+          {questions.errorMessage}
+        </form>
+      </div>
     );
   }
 }

@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { deleteToken } from '../services/localStorage';
 import Header from '../components/Header';
 import Question from '../components/Question';
+import logo from '../images/logo-trivia.svg';
 
 class Game extends Component {
   componentDidMount() {
@@ -21,20 +22,25 @@ class Game extends Component {
     const { indexOfCurrentQuestion: index } = questions;
     const maxNumberOfQuestions = questions.apiQuestions.length;
     return (
-      <div>
-        <Header />
+      <div className="container-fluid gap-3 game">
+        <div className="row">
+          <Header />
+        </div>
         {(apiQuestions.length > 0) && (index < maxNumberOfQuestions)
           ? (
-            <Question
-              questionData={ {
-                category: apiQuestions[index].category,
-                type: apiQuestions[index].type,
-                difficulty: apiQuestions[index].difficulty,
-                question: apiQuestions[index].question,
-                correctAnswer: apiQuestions[index].correct_answer,
-                incorrectAnswers: apiQuestions[index].incorrect_answers,
-              } }
-            />
+            <div className="row">
+              <img src={ logo } alt="logo" className="logo logo-game" />
+              <Question
+                questionData={ {
+                  category: apiQuestions[index].category,
+                  type: apiQuestions[index].type,
+                  difficulty: apiQuestions[index].difficulty,
+                  question: apiQuestions[index].question,
+                  correctAnswer: apiQuestions[index].correct_answer,
+                  incorrectAnswers: apiQuestions[index].incorrect_answers,
+                } }
+              />
+            </div>
           )
           : (<Redirect to="feedback" />)}
       </div>

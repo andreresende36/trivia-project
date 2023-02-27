@@ -11,7 +11,6 @@ class Question extends Component {
     isAnswered: false,
     arrayAnswers: [],
     seconds: 30,
-    isDisable: false,
   };
 
   componentDidMount() {
@@ -52,7 +51,6 @@ class Question extends Component {
     dispatch(changeIndexOfQuestions());
     this.setState({
       isAnswered: false,
-      isDisable: false,
       seconds: 30,
     });
     this.decreaseTimer();
@@ -69,7 +67,7 @@ class Question extends Component {
         () => {
           if (seconds === 1) {
             clearInterval(this.timer);
-            this.setState({ isDisable: true });
+            this.setState({ isAnswered: true });
           }
         },
       );
@@ -83,7 +81,7 @@ class Question extends Component {
   };
 
   render() {
-    const { isAnswered, seconds, isDisable, arrayAnswers } = this.state;
+    const { isAnswered, seconds, arrayAnswers } = this.state;
     const { questionData } = this.props;
     const { category, question, correctAnswer } = questionData;
     const nextButton = (
@@ -97,8 +95,8 @@ class Question extends Component {
       </button>
     );
     return (
-      <div className="row justify-content-center align-items-center question">
-        <div className="col-12 col-sm-6 col-md-6 card">
+      <div className="row justify-content-center align-items-center question m-2">
+        <div className="col-12 col-md-6 col-md-6 card p-2">
           <h2
             data-testid="question-category"
             className="btn btn-warning col-9 question-category p-2"
@@ -112,7 +110,7 @@ class Question extends Component {
             <span>{seconds}</span>
           </p>
         </div>
-        <div data-testid="answer-options" className="col-12 col-sm-4 buttons">
+        <div data-testid="answer-options" className="col-12 col-md-4 buttons mt-3">
           {arrayAnswers.map((answer, index) => (
             <div key={ answer } className="row m-2">
               <button
@@ -129,7 +127,7 @@ class Question extends Component {
                     : 'btn btn-light'
                 }
                 onClick={ this.handleAnswer }
-                disabled={ isDisable }
+                disabled={ isAnswered }
               >
                 {answer}
               </button>

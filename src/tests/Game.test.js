@@ -46,7 +46,7 @@ describe('Teste do componente Game.js', () => {
     expect(imageProfile.src).toBe(mockedUrl);
   });
 
-  it('Testa ose retorna para pagina de login quando "reload" é true', () => {
+  it('Testa se retorna para pagina de login quando "reload" é true', () => {
     const initial_state = {
       player: { 
         name: 'Jogador 1',
@@ -67,6 +67,6 @@ describe('Teste do componente Game.js', () => {
     })
     const { pathname } = history.location;
     expect(pathname).toEqual('/');
-    expect(screen.getByText(/nome/i)).toBeInTheDocument();
+    expect(screen.getByText(/name/i)).toBeInTheDocument();
   })
 });

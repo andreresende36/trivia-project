@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { GearFill } from 'react-bootstrap-icons';
 import {
   setNameAndEmail,
   requestError,
@@ -34,11 +33,6 @@ class Login extends Component {
     this.setState({
       isDisabled,
     });
-  };
-
-  handleSettingsOnClick = () => {
-    const { history } = this.props;
-    history.push('/settings');
   };
 
   hanldeQuestions = async () => {
@@ -106,18 +100,6 @@ class Login extends Component {
               className="btn btn-primary col-8 col-md-6 col-sm-8"
             >
               Play
-            </button>
-          </div>
-          <div className="row justify-content-center mt-3">
-            <button
-              type="button"
-              data-testid="btn-settings"
-              onClick={ this.handleSettingsOnClick }
-              className="btn btn-secondary col-6 col-md-3 col-sm-6"
-            >
-              <GearFill />
-              {' '}
-              Settings
             </button>
           </div>
 

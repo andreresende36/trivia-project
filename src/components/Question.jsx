@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import he from 'he';
 import { connect } from 'react-redux';
 import { StopwatchFill } from 'react-bootstrap-icons';
 import { changeIndexOfQuestions, increaseScore } from '../redux/actions';
@@ -84,6 +85,9 @@ class Question extends Component {
     const { isAnswered, seconds, arrayAnswers } = this.state;
     const { questionData } = this.props;
     const { category, question, correctAnswer } = questionData;
+    const decodedCategory = he.decode(category);
+    const decodedQuestion = he.decode(question);
+    const decodedAnswers = arrayAnswers.map((answer) => he.decode(answer));
     const nextButton = (
       <button
         type="button"
@@ -91,7 +95,7 @@ class Question extends Component {
         data-testid="btn-next"
         className="btn btn-success col-6 offset-3"
       >
-        Próxima pergunta
+        Next question
       </button>
     );
     return (
@@ -101,9 +105,9 @@ class Question extends Component {
             data-testid="question-category"
             className="btn btn-warning col-9 question-category p-2"
           >
-            {category}
+            {decodedCategory}
           </h2>
-          <h4 data-testid="question-text" className="mt-5 p-4">{question}</h4>
+          <h4 data-testid="question-text" className="mt-5 p-4">{decodedQuestion}</h4>
           <p className="d-flex align-items-center justify-content-center gap-1">
             <StopwatchFill />
             Tempo:
@@ -111,7 +115,7 @@ class Question extends Component {
           </p>
         </div>
         <div data-testid="answer-options" className="col-12 col-md-4 buttons mt-3">
-          {arrayAnswers.map((answer, index) => (
+          {decodedAnswers.map((answer, index) => (
             <div key={ answer } className="row m-2">
               <button
                 type="button"

@@ -12,7 +12,7 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
  
 # Projeto: Jogo Trivia
 
-O Trivia é um jogo de perguntas e respostas (uma espécie de "Show do Milhão" americano), que foi construído utilizando tecnologias como React e Redux. A elaboração deste projeto foi realizada em equipe, com todos os membros contribuindo de forma efetiva e seguindo as demandas definidas e gerenciadas de forma organizada em um quadro Kanban. Com a aplicação dessas metodologias, conseguimos implementar as funcionalidades necessárias de forma sistemática e eficiente, resultando em uma experiência de jogo envolvente e desafiadora para os usuários.
+O Trivia é um jogo de perguntas e respostas (uma espécie de "Show do Milhão" americano), que foi construído utilizando tecnologias como React e Redux. A elaboração deste projeto foi proposta pela Trybe para ser realizada em equipe, com todos os membros contribuindo de forma efetiva e seguindo as demandas definidas e gerenciadas de forma organizada em um quadro Kanban. Com a aplicação dessas metodologias, conseguimos implementar as funcionalidades necessárias de forma sistemática e eficiente, resultando em uma experiência de jogo envolvente e desafiadora para os usuários.
 
 O jogo consiste nos seguintes passos:
 - Logar no jogo e, se o email tiver cadastro no site Gravatar, ter a foto da pessoa usuária associada a seu perfil;

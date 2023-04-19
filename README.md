@@ -64,12 +64,63 @@ Através dessas imagens, é possível ter uma ideia do design e do estilo da nos
 Durante esse projeto, pude adquirir valiosos conhecimentos em relação à aplicação do Redux, bem como aprimorar minhas habilidades em trabalho em equipe, incluindo o alinhamento e a divisão eficiente de tarefas. Com uma distribuição cuidadosa e precisa das atividades entre os membros do grupo, conseguimos alcançar todos os objetivos planejados no cronograma estabelecido previamente. O resultado dessa abordagem foi um projeto executado com sucesso, e que nos proporcionou importantes lições para futuros trabalhos em equipe.
 
 
-## Autores
+## Autores e Divisão de Tarefas
+
+### Requisitos
+Os requisitos e tarefas solicitados nesse projeto são os seguintes:
+
+1. Crie a tela de login, onde a pessoa que joga deve preencher as informações para iniciar um jogo
+
+2. Crie o botão de iniciar o jogo
+
+3. Desenvolva testes para atingir 90% de cobertura da tela de Login
+
+4. Crie um header que deve conter as informações da pessoa jogadora
+
+5. Crie a página de jogo que deve conter as informações relacionadas à pergunta
+
+6. Desenvolva o estilo que, ao clicar em uma resposta, a correta deve ficar verde e as incorretas, vermelhas
+
+7. Desenvolva um timer onde a pessoa que joga tem 30 segundos para responder
+
+8. Crie o placar para que ao clicar na resposta correta, pontos devem ser somados no placar da pessoa que está jogando seguindo regras específicas
+
+9. Crie um botão de Next que apareça após a resposta ser dada
+
+10. Desenvolva o jogo de forma que a pessoa jogadora deve responder 5 perguntas no total
+
+11. Desenvolva o header de feedback que deve conter as informações da pessoa jogadora
+
+12. Crie a mensagem de feedback para ser exibida a pessoa usuária
+
+13. Exiba as informações relacionadas aos resultados obtidos para a pessoa usuária
+
+14. Crie a opção para a pessoa jogadora poder jogar novamente
+
+15. Crie a opção para a pessoa jogadora poder visualizar a tela de ranking
+
+16. Desenvolva testes para atingir 90% de cobertura da tela de Feedbacks
+
+17. Crie um botão para ir ao início
+
+18. Crie o conteúdo da tela de ranking
+
+19. Desenvolva testes para atingir 90% de cobertura da tela de Ranking
+
+20. Desenvolva testes para atingir 90% de cobertura da tela de Jogo
+
+21. Desenvolva testes para atingir 95% de cobertura total
+
+### Autores
+
 Os autores do projeto Trivia são:
 
-- [@andreresende36](https://github.com/andreresende36)
-- [@guilhermearaujoo](https://github.com/guilhermearaujoo)
-- [@ismasoares](https://github.com/ismasoares)
-- [@vctalmeida](https://github.com/vctalmeida)
+- [@andreresende36](https://github.com/andreresende36) Responsável pelos requisitos: 2, 4, 8, 9, 10, 11, 12, 13, 14, 15 e 21;
+- [@guilhermearaujoo](https://github.com/guilhermearaujoo) Responsável pelos requisitos: 1, 5, 16, 20 e 21. O Guilherme foi responsável pela estilização do projeto utilizando Bootstrap e SCSS;
+- [@ismasoares](https://github.com/ismasoares) Responsável pelos requisitos: 6, 18, 19 e 21;
+- [@vctalmeida](https://github.com/vctalmeida) Responsável pelos requisitos: 3, 7, 17, 19 e 21;
+
+Obs: os requisitos que se repetem foram desenvolvidos em grupo ou pair-programming.
 
 Qualquer dúvida ou sugestão, deixe-nos uma mensagem!
+

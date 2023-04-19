@@ -115,10 +115,69 @@ Os requisitos e tarefas solicitados nesse projeto são os seguintes:
 
 Os autores do projeto Trivia são:
 
-- [@andreresende36](https://github.com/andreresende36) Responsável pelos requisitos: 2, 4, 8, 9, 10, 11, 12, 13, 14, 15 e 21;
-- [@guilhermearaujoo](https://github.com/guilhermearaujoo) Responsável pelos requisitos: 1, 5, 16, 20 e 21. O Guilherme foi responsável pela estilização do projeto utilizando Bootstrap e SCSS;
-- [@ismasoares](https://github.com/ismasoares) Responsável pelos requisitos: 6, 18, 19 e 21;
-- [@vctalmeida](https://github.com/vctalmeida) Responsável pelos requisitos: 3, 7, 17, 19 e 21;
+- André Resende [@andreresende36](https://github.com/andreresende36)
+  - Responsável pelos requisitos: 2, 4, 8, 9, 10, 11, 12, 13, 14, 15 e 21;
+  - Autor ou Co-autor dos arquivos: 
+    - src/components/Question.jsx
+    - src/pages/Feedback.jsx
+    - src/pages/Game.jsx
+    - src/pages/Login.jsx
+    - src/pages/Ranking.jsx
+    - src/redux/actions/index.js
+    - src/redux/actions/variablesTypes.js
+    - src/redux/reducers/player.js
+    - src/redux/reducers/questions.js
+    - src/services/apiTrivia.js
+    - src/service/calcDifficultyIndex.js
+    - src/services/randomAnswers.js
+    - src/tests/Game.test.js
+    - src/App.js
+  
+- Guilherme Araújo [@guilhermearaujoo](https://github.com/guilhermearaujoo)
+  - Responsável pelos requisitos: 1, 5, 16, 20 e 21. Guilherme também ficou responsável pela estilização do projeto utilizando Bootstrap e SCSS;
+  - Autor ou Co-autor dos arquivos: 
+    - src/components/Header.jsx
+    - src/components/Question.jsx
+    - src/components/UserRanking.jsx
+    - src/pages/Game.jsx
+    - src/pages/Feedback.jsx
+    - src/pages/Login.jsx
+    - src/pages/Ranking.jsx
+    - src/redux/actions/index.js
+    - src/redux/actions/variablesTypes.js
+    - src/redux/reducers/index.js
+    - src/redux/reducers/player.js
+    - src/redux/reducers/questions.js
+    - src/redux/index.js
+    - src/services/apiTrivia.js
+    - src/services/apiTriviaQuestions.js
+    - src/service/localStorage.js
+    - src/service/localStorageGetToken.js
+    - src/styles/css/style.css
+    - src/styles/css/style.css.map
+    - src/styles/style.scss
+    - src/tests/Feedback.test.js
+    - src/tests/Game.test.js
+    - src/tests/Login.test.js
+    - src/tests/Question.test.js
+    - src/App.js
+    - src/index.js
+  
+- Ismael Soares [@ismasoares](https://github.com/ismasoares)
+  - Responsável pelos requisitos: 6, 18, 19 e 21;
+  - Autor ou Co-autor dos arquivos: 
+    - src/components/UserRanking.jsx
+    - src/pages/Feedback.jsx
+    - src/pages/Ranking.jsx    
+  
+- Victor Almeida [@vctalmeida](https://github.com/vctalmeida)
+  - Responsável pelos requisitos: 3, 7, 17, 19 e 21;
+  - Autor ou Co-autor dos arquivos: 
+    - src/components/Question.jsx
+    - src/pages/Ranking.jsx
+    - src/tests/helpers/renderWithRouterAndRedux.js
+    - src/tests/Login.test.js
+    - src/tests/Ranking.test.js
 
 Obs: os requisitos que se repetem foram desenvolvidos em grupo ou pair-programming.
 
